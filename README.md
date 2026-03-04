@@ -37,6 +37,8 @@ capping bandwidth the difference is acceptable.
 
 ```go
 import (
+    "log"
+
     "github.com/andrewheberle/desyncutil"
     "github.com/folbricht/desync"
 )

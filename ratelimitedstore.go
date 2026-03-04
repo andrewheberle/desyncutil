@@ -98,5 +98,5 @@ return r.store.Close()
 
 // String returns a human-readable description of the store.
 func (r *RateLimitedStore) String() string {
-return fmt.Sprintf(“rate-limited(%s)”, r.store)
+return fmt.Sprintf("rate-limited(%s)", r.store)
 }

@@ -1,3 +1,4 @@
+// This package provides utilities that complement the [desync] library.
 package desyncutil
 
 import (
@@ -17,7 +18,7 @@ const (
 	maxChunkSize = 256 * 1024
 )
 
-// RateLimitedStore wraps a desync.Store and limits the bandwidth consumed by
+// RateLimitedStore wraps a [desync.Store] and limits the bandwidth consumed by
 // GetChunk calls. HasChunk, Close, and String are passed through unchanged.
 //
 // The rate limit is shared across all concurrent GetChunk calls, making it
@@ -32,8 +33,8 @@ type RateLimitedStore struct {
 	limiter *rate.Limiter
 }
 
-// NewRateLimitedStore returns a RateLimitedStore that wraps s and limits
-// GetChunk throughput to bytesPerSecond.
+// NewRateLimitedStore returns a [RateLimitedStore] that wraps s and limits
+// [RateLimitedStore.GetChunk] throughput to bytesPerSecond.
 //
 // The token-bucket burst is set to max(256 KiB, bytesPerSecond) so that a
 // single maximum-sized chunk can always be admitted in one WaitN call.
@@ -51,7 +52,7 @@ func NewRateLimitedStore(s desync.Store, bytesPerSecond float64) *RateLimitedSto
 //
 // Note: when the inner store returns compressed chunks, the token charge is
 // based on the uncompressed size rather than the compressed wire size. Because
-// zstd compression typically reduces chunk size by 2–4x, the limiter will fire
+// zstd compression typically reduces chunk size by 2-4x, the limiter will fire
 // more often than the raw bandwidth alone would require, making the effective
 // limit more conservative than the configured value. The desync Chunk type
 // does not expose the original compressed bytes through any public method, so
@@ -71,12 +72,9 @@ func (r *RateLimitedStore) GetChunk(id desync.ChunkID) (*desync.Chunk, error) {
 		return nil, err
 	}
 
-	n := len(data)
-	if n > r.limiter.Burst() {
-		// This should not happen with the burst sizing above, but guard
-		// against it rather than letting WaitN return a permanent error.
-		n = r.limiter.Burst()
-	}
+	// This should not happen with the burst sizing above, but guard
+	// against it rather than letting WaitN return a permanent error.
+	n := min(len(data), r.limiter.Burst())
 
 	// WaitN blocks until the limiter permits n tokens. We use a background
 	// context because GetChunk does not receive one from the Store interface.

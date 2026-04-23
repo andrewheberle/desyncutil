@@ -42,11 +42,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// use default store options
-	opts := desync.NewStoreOptionsWithDefaults()
-
 	// Set up remote store
-	inner, err := desync.NewRemoteHTTPStore(location, opt)
+	inner, err := desync.NewRemoteHTTPStore(location, desync.NewStoreOptionsWithDefaults())
 	if err != nil {
 		log.Fatal(err)
 	}

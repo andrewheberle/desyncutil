@@ -2,6 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/andrewheberle/desyncutil.svg)](https://pkg.go.dev/github.com/andrewheberle/desyncutil)
 [![Go Report Card](https://goreportcard.com/badge/github.com/andrewheberle/desyncutil)](https://goreportcard.com/report/github.com/andrewheberle/desyncutil)
+[![codecov](https://codecov.io/gh/andrewheberle/desyncutil/graph/badge.svg?token=O4hzulU5Ll)](https://codecov.io/gh/andrewheberle/desyncutil)
 
 This package provides utilities that complement the
 [desync](https://github.com/folbricht/desync) library.

@@ -7,6 +7,8 @@ require (
 	golang.org/x/time v0.15.0
 )
 
+replace github.com/mitchellh/go-homedir => ./internal/homedir
+
 require (
 	cel.dev/expr v0.25.1 // indirect
 	cloud.google.com/go v0.123.0 // indirect

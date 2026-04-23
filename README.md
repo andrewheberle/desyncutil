@@ -3,18 +3,8 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/andrewheberle/desyncutil.svg)](https://pkg.go.dev/github.com/andrewheberle/desyncutil)
 [![Go Report Card](https://goreportcard.com/badge/github.com/andrewheberle/desyncutil)](https://goreportcard.com/report/github.com/andrewheberle/desyncutil)
 
-Package `desyncutil` provides utilities that complement the
-[desync](https://github.com/folbricht/desync) library without modifying it.
-
-## Requirements
-
-Go 1.24.0 or later (matching the minimum version required by desync).
-
-## Installation
-
-```sh
-go get github.com/andrewheberle/desyncutil
-```
+This package provides utilities that complement the
+[desync](https://github.com/folbricht/desync) library.
 
 ## Contents
 
@@ -27,6 +17,7 @@ download flag (`-n`) is in use.
 
 Rate limiting is applied after each chunk is fetched using a token bucket
 (provided by [`golang.org/x/time/rate`](https://pkg.go.dev/golang.org/x/time/rate)).
+
 Because the `desync.Store` interface does not expose the compressed wire size
 of a chunk, the token charge is based on the uncompressed chunk size. When the
 inner store returns compressed chunks this causes the limiter to be more
@@ -38,20 +29,33 @@ capping bandwidth the difference is acceptable.
 ```go
 import (
     "log"
+	"net/url"
 
     "github.com/andrewheberle/desyncutil"
     "github.com/folbricht/desync"
 )
 
-// Wrap an existing store, limiting throughput to 10 MB/s.
-inner, err := desync.NewRemoteHTTPStore(location, opt)
-if err != nil {
-    log.Fatal(err)
+func main() {
+	// parse store URL
+	location, err := url.Parse("http://store:8080")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// use default store options
+	opts := desync.NewStoreOptionsWithDefaults()
+
+	// Set up remote store
+	inner, err := desync.NewRemoteHTTPStore(location, opt)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Wrap the existing store, limiting throughput to 10 MB/s.
+	store := desyncutil.NewRateLimitedStore(inner, 10*1024*1024)
+
+	// Use store anywhere a desync.Store is accepted.
 }
-
-store := desyncutil.NewRateLimitedStore(inner, 10*1024*1024)
-
-// Use store anywhere a desync.Store is accepted.
 ```
 
 ## License

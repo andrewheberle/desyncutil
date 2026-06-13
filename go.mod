@@ -3,7 +3,7 @@ module github.com/andrewheberle/desyncutil
 go 1.25.0
 
 require (
-	github.com/folbricht/desync v1.0.1
+	github.com/folbricht/desync v1.0.2
 	golang.org/x/time v0.15.0
 )
 

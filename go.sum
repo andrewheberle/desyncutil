@@ -57,6 +57,8 @@ github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
 github.com/folbricht/desync v1.0.1 h1:54tq6hiV2MZUNFkNPY4bj6GiKUfebqhGg5gX13EODeM=
 github.com/folbricht/desync v1.0.1/go.mod h1:Mf0s8rjDZD/JjIN/ruZx7JHZ+7DhHbNxIGW4UdEar38=
+github.com/folbricht/desync v1.0.2 h1:BzOxAGUE/+Kw4+gcuMwXFZ5hHEFhOWusyeV9XiydYCI=
+github.com/folbricht/desync v1.0.2/go.mod h1:jZfpIcPjRfod07F4ORAT55tn5gyaAouFu6lBH9yIOVQ=
 github.com/folbricht/tempfile v0.0.1 h1:kB3DubP2Fm5e3W7TrWFNZBfzFEHBoKL7Pjn0HvqKxSQ=
 github.com/folbricht/tempfile v0.0.1/go.mod h1:/Flpxx/6U+clQJ61jQ3y6Z7L2l6j1/ZSiU4B9EDPgWw=
 github.com/go-jose/go-jose/v4 v4.1.4 h1:moDMcTHmvE6Groj34emNPLs/qtYXRVcd6S7NHbHz3kA=
